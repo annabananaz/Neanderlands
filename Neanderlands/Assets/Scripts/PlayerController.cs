@@ -26,12 +26,12 @@ public class PlayerController : MonoBehaviour
     //public GameObject pauseMenuCanvas;
     //public GameObject crossHair;
 
-    //public GameController gc;
+    public GameController gc;
 
     // Use this for initialization
     void Start()
     {
-        //gc = GameObject.FindObjectOfType<GameController>();
+        gc = GameObject.FindObjectOfType<GameController>();
 
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
@@ -76,14 +76,15 @@ public class PlayerController : MonoBehaviour
         //    source.PlayOneShot(clip1);
         //}
 
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    gc.PauseMusic();
-        //    GetComponent<PlayerController>().enabled = false;
-        //    crossHair.SetActive(false);
-        //    pauseMenuCanvas.SetActive(true);
-        //    Cursor.visible = true;
-        //    Time.timeScale = 0;
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gc.PauseGame();
+            GetComponent<PlayerController>().enabled = false;
+            //gc.PauseMusic();
+            //crossHair.SetActive(false);
+            //pauseMenuCanvas.SetActive(true);
+            //Cursor.visible = true;
+            //Time.timeScale = 0;
+        }
     }
 }
