@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+    private const float V = 3.0f;
     [SerializeField]
     public Transform dest;
 
+    [SerializeField]
+    public Transform player;
+
     bool pickedUp = false;
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         //GetComponent<BoxCollider>().enabled = false;
-        pickedUp = true;
-        GetComponent<Rigidbody>().useGravity = false;
-        this.transform.position = dest.position;
-        this.transform.parent = GameObject.Find("HoldDestination").transform;
+        float dist = Vector3.Distance(gameObject.transform.position, player.position);
+        if (dist <= V)
+        {
+            pickedUp = true;
+            GetComponent<Rigidbody>().useGravity = false;
+            this.transform.position = dest.position;
+            this.transform.parent = GameObject.Find("HoldDestination").transform;
+        }
+        
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
         pickedUp = false;
         this.transform.parent = null;
