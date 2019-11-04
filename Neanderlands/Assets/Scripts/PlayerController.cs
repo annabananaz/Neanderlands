@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     //public AudioClip clip1;
 
     // Pause menu
-    //public GameObject pauseMenuCanvas;
     //public GameObject crossHair;
 
     public GameController gc;
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
         //source = audioSources[0];
         //clip1 = audioSources[0].clip;
 
-        Time.timeScale = 1f;            // Starts game at timescale 1 for active
+        
     }
 
     // Update is called once per frame
@@ -67,24 +66,12 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-
-        //if(Input.GetButton("Fire1") && Time.time > nextFire)
-        //{
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-        //    //play audio
-        //    source.PlayOneShot(clip1);
-        //}
-
+        
+        //pause game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gc.PauseGame();
-            GetComponent<PlayerController>().enabled = false;
-            //gc.PauseMusic();
-            //crossHair.SetActive(false);
-            //pauseMenuCanvas.SetActive(true);
-            //Cursor.visible = true;
-            //Time.timeScale = 0;
+            
         }
     }
 }
