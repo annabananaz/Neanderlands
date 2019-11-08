@@ -28,6 +28,12 @@ public class PlayerController : MonoBehaviour
 
     //public GameController gc;
 
+    //Generic stuff for the Toolbox
+    //public int currentTool = 1;
+    //public boolean Hands = true;
+    //public boolean PickAxe = false;
+    //public boolean Torch = true;
+
     // Use this for initialization
     void Start()
     {
@@ -86,4 +92,17 @@ public class PlayerController : MonoBehaviour
         //    Time.timeScale = 0;
         //}
     }
+//      Function to Break Rocks
+//      private void Breaker(){
+//      if (Input.GetMouseButtonDown(0))
+//      {
+//              if (currentTool = 2 && PickAxe = true)
+//              {
+//                      if (gameObject.tag == "breakableRock")
+//                      {
+//                      Destroy(gameObject);
+//                      }
+//              }
+//      }
+//      }
 }
