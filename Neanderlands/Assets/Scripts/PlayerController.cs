@@ -29,10 +29,16 @@ public class PlayerController : MonoBehaviour
     //public GameController gc;
 
     //Generic stuff for the Toolbox
-    //public int currentTool = 1;
-    //public boolean Hands = true;
-    //public boolean PickAxe = false;
-    //public boolean Torch = true;
+    public int currentTool = 1;
+    public bool Hands = true;
+    public bool PickAxe = false;
+    public bool Torch = false;
+
+    //Creating the Toolbox System
+    // 1 = Hands
+    // 2 = PickAxe
+    // 3 = Torch
+
 
     // Use this for initialization
     void Start()
@@ -92,17 +98,37 @@ public class PlayerController : MonoBehaviour
         //    Time.timeScale = 0;
         //}
     }
-//      Function to Break Rocks
-//      private void Breaker(){
-//      if (Input.GetMouseButtonDown(0))
-//      {
-//              if (currentTool = 2 && PickAxe = true)
-//              {
-//                      if (gameObject.tag == "breakableRock")
-//                      {
-//                      Destroy(gameObject);
-//                      }
-//              }
-//      }
-//      }
+      //Function to Break Rocks
+      private void Breaker(){
+                if (Input.GetMouseButtonDown(0))
+                {
+                        if (currentTool == 2)
+                        {
+                                if (PickAxe == true)
+                                {
+                                        if (gameObject.tag == "breakableRock")
+                                        {
+                                                Destroy(gameObject);
+                                        }
+                                }
+                        }
+                }
+      }
+
+      //Mechanic for switching between tools
+      private void Switch(){ 
+        
+      if (Input.GetKeyDown("1"))
+      {
+        currentTool = 1;
+      }
+      if (Input.GetKeyDown("2") && PickAxe == true)
+      {
+        currentTool = 2;
+      }
+      if (Input.GetKeyDown("3") && Torch == true)
+      {
+        currentTool = 3;
+      }
+        }
 }
