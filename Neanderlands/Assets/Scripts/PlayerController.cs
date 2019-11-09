@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
     //public GameController gc;
 
     //Generic stuff for the Toolbox
-    public int currentTool = 1;
+    public int currentTool = 2;
     public bool Hands = true;
-    public bool PickAxe = false;
+    public bool PickAxe = true;
     public bool Torch = false;
 
     //Creating the Toolbox System
@@ -80,55 +80,72 @@ public class PlayerController : MonoBehaviour
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
-        //if(Input.GetButton("Fire1") && Time.time > nextFire)
-        //{
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-        //    //play audio
-        //    source.PlayOneShot(clip1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    gc.PauseMusic();
-        //    GetComponent<PlayerController>().enabled = false;
-        //    crossHair.SetActive(false);
-        //    pauseMenuCanvas.SetActive(true);
-        //    Cursor.visible = true;
-        //    Time.timeScale = 0;
-        //}
-    }
-      //Function to Break Rocks
-      private void Breaker(){
-                if (Input.GetMouseButtonDown(0))
+        //Checks multiple conditions, if true, the rocks break with a left click
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+                //print("Pressing Mouse 0");
+                if (currentTool == 2)
                 {
-                        if (currentTool == 2)
+                        //print("Current tool is 2");
+                        if (PickAxe == true)
                         {
-                                if (PickAxe == true)
+                                //print("PickAxe is true");
+                                RaycastHit hit;
+                                Ray thing = new Ray(transform.position, Vector3.forward);
+                                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
+                                if (Physics.Raycast(thing, out hit, 8.0f))
                                 {
-                                        if (gameObject.tag == "breakableRock")
-                                        {
-                                                Destroy(gameObject);
-                                        }
+                                        print("This is tag " + hit.transform.gameObject.tag);
+                                        Breaker(hit.transform.gameObject);
                                 }
                         }
                 }
+        }
+
+        //Mechanic for Switching between tools
+        if (Input.GetKeyDown("1"))
+        {
+               currentTool = 1;
+               print("Current Tool is Hands");
+        }
+        if (Input.GetKeyDown("2") && PickAxe == true)
+        {
+                currentTool = 2;
+                print("Current Tool is PickAxe");
+        }
+        if (Input.GetKeyDown("3") && Torch == true)
+        {
+                currentTool = 3;
+                print("Current Tool is Torch");
+        }
+
+
+                //if(Input.GetButton("Fire1") && Time.time > nextFire)
+                //{
+                //    nextFire = Time.time + fireRate;
+                //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
+                //    //play audio
+                //    source.PlayOneShot(clip1);
+                //}
+
+                //if (Input.GetKeyDown(KeyCode.Escape))
+                //{
+                //    gc.PauseMusic();
+                //    GetComponent<PlayerController>().enabled = false;
+                //    crossHair.SetActive(false);
+                //    pauseMenuCanvas.SetActive(true);
+                //    Cursor.visible = true;
+                //    Time.timeScale = 0;
+                //}
+        }
+      //Function to Break Rocks
+      private void Breaker(GameObject gameObject)
+      {   
+        if (gameObject.tag == "breakableRock")
+        {
+                Destroy(gameObject);
+        }
       }
 
-      //Mechanic for switching between tools
-      private void Switch(){ 
-        
-      if (Input.GetKeyDown("1"))
-      {
-        currentTool = 1;
-      }
-      if (Input.GetKeyDown("2") && PickAxe == true)
-      {
-        currentTool = 2;
-      }
-      if (Input.GetKeyDown("3") && Torch == true)
-      {
-        currentTool = 3;
-      }
-        }
+
 }
