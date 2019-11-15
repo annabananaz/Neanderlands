@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public int currentTool = 2;
     public bool Hands = true;
     public bool PickAxe = true;
-    public bool Torch = false;
+    public bool Torch = true;
 
     //Creating the Toolbox System
     // 1 = Hands
@@ -102,6 +102,27 @@ public class PlayerController : MonoBehaviour
                 }
         }
 
+        //Checks multiple conditions, if true, the vines break with a left click
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+                //print("Pressing Mouse 0");
+                if (currentTool == 3)
+                {
+                        //print("Current tool is 2");
+                        if (Torch == true)
+                        {
+                                //print("PickAxe is true");
+                                RaycastHit hit;
+                                Ray thing = new Ray(transform.position, Vector3.forward);
+                                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
+                                if (Physics.Raycast(thing, out hit, 8.0f))
+                                {
+                                        print("This is tag " + hit.transform.gameObject.tag);
+                                        Burner(hit.transform.gameObject);
+                                }
+                        }
+                }
+        }
         //Mechanic for Switching between tools
         if (Input.GetKeyDown("1"))
         {
@@ -142,6 +163,15 @@ public class PlayerController : MonoBehaviour
       private void Breaker(GameObject gameObject)
       {   
         if (gameObject.tag == "breakableRock")
+        {
+                Destroy(gameObject);
+        }
+      }
+
+        //Function to Burn Vines
+      private void Burner(GameObject gameObject)
+      {
+        if (gameObject.tag == "breakableVines")
         {
                 Destroy(gameObject);
         }

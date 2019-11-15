@@ -131,6 +131,10 @@ MonoBehaviour:
   jumpRate: 0
   maxPitch: 0
   minPitch: 0
+  currentTool: 2
+  Hands: 1
+  PickAxe: 1
+  Torch: 1
 --- !u!1 &1821764948881592
 GameObject:
   m_ObjectHideFlags: 0
