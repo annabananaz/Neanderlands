@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1585141655624199520}
   m_Layer: 0
   m_Name: BreakableRock
-  m_TagString: Untagged
+  m_TagString: breakableRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
