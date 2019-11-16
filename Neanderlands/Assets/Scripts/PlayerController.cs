@@ -23,10 +23,9 @@ public class PlayerController : MonoBehaviour
     //public AudioClip clip1;
 
     // Pause menu
-    //public GameObject pauseMenuCanvas;
     //public GameObject crossHair;
 
-    //public GameController gc;
+    public GameController gc;
 
     //Generic stuff for the Toolbox
     public int currentTool = 2;
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //gc = GameObject.FindObjectOfType<GameController>();
+        gc = GameObject.FindObjectOfType<GameController>();
 
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour
         //source = audioSources[0];
         //clip1 = audioSources[0].clip;
 
-        Time.timeScale = 1f;            // Starts game at timescale 1 for active
+        
     }
 
     // Update is called once per frame
@@ -79,6 +78,13 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        
+        //pause game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gc.PauseGame();
+            
+        }
 
         //Checks multiple conditions, if true, the rocks break with a left click
         if (Input.GetKey(KeyCode.Mouse0))
@@ -146,6 +152,4 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
         }
       }
-
-
 }
