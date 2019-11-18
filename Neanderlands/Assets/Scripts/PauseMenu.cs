@@ -16,6 +16,6 @@ public class PauseMenu : MonoBehaviour
         gc = GameObject.FindObjectOfType<GameController>();
         
         resumeButton.GetComponent<Button>().onClick.AddListener(delegate { gc.ResumeGame(); });
-        //quitButton.GetComponent<Button>().onClick.AddListener(delegate { gc.QuitGame(); });
+        quitButton.GetComponent<Button>().onClick.AddListener(delegate { gc.QuitGame(); });
     }
 }

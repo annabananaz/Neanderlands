@@ -46,4 +46,9 @@ public class GameController : MonoBehaviour
         //Cursor.visible = true;
         //Time.timeScale = 0;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
