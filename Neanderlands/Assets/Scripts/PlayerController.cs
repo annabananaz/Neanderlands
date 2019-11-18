@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject pickaxe, torch;
 
     public float moveSpeed;
     public float jumpForce;
@@ -11,13 +13,21 @@ public class PlayerController : MonoBehaviour
     public float jumpRate;
     public float maxPitch;
     public float minPitch;
-    
+
 
     private Vector3 jump;
     private float nextJump = 0.0f;
     private float yaw = 0.0f;
     private float pitch = 0.0f;
     private Rigidbody rb;
+    //roll
+    [SerializeField]
+    private float rollAngle = 10f;
+
+    [SerializeField]
+    private float rollSpeed = 3f;
+
+    private float currentRollAngle = 0f;
 
     //public AudioSource source;
     //public AudioClip clip1;
@@ -26,12 +36,6 @@ public class PlayerController : MonoBehaviour
     //public GameObject crossHair;
 
     public GameController gc;
-
-    //Generic stuff for the Toolbox
-    public int currentTool = 2;
-    public bool Hands = true;
-    public bool PickAxe = true;
-    public bool Torch = false;
 
     //Creating the Toolbox System
     // 1 = Hands
@@ -77,7 +81,9 @@ public class PlayerController : MonoBehaviour
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        LookAroundRoll();
+
+        transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
         
         //pause game
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -89,40 +95,18 @@ public class PlayerController : MonoBehaviour
         //Checks multiple conditions, if true, the rocks break with a left click
         if (Input.GetKey(KeyCode.Mouse0))
         {
-                //print("Pressing Mouse 0");
-                if (currentTool == 2)
+            if (pickaxe.activeSelf) { 
+                //print("PickAxe is true");
+                RaycastHit hit;
+                Ray thing = new Ray(transform.position, Vector3.forward);
+                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.red);
+                if (Physics.Raycast(thing, out hit, 8.0f))
                 {
-                        //print("Current tool is 2");
-                        if (PickAxe == true)
-                        {
-                                //print("PickAxe is true");
-                                RaycastHit hit;
-                                Ray thing = new Ray(transform.position, Vector3.forward);
-                                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
-                                if (Physics.Raycast(thing, out hit, 8.0f))
-                                {
-                                        print("This is tag " + hit.transform.gameObject.tag);
-                                        Breaker(hit.transform.gameObject);
-                                }
-                        }
+                        print("This is tag " + hit.transform.gameObject.tag);
+                        Breaker(hit.transform.gameObject);
                 }
-        }
-
-        //Mechanic for Switching between tools
-        if (Input.GetKeyDown("1"))
-        {
-               currentTool = 1;
-               print("Current Tool is Hands");
-        }
-        if (Input.GetKeyDown("2") && PickAxe == true)
-        {
-                currentTool = 2;
-                print("Current Tool is PickAxe");
-        }
-        if (Input.GetKeyDown("3") && Torch == true)
-        {
-                currentTool = 3;
-                print("Current Tool is Torch");
+                        
+            }
         }
 
 
@@ -144,7 +128,9 @@ public class PlayerController : MonoBehaviour
                 //    Time.timeScale = 0;
                 //}
         }
+
       //Function to Break Rocks
+      
       private void Breaker(GameObject gameObject)
       {   
         if (gameObject.tag == "breakableRock")
@@ -152,4 +138,9 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
         }
       }
+
+    void LookAroundRoll() {
+        currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
+                            * rollAngle, Time.deltaTime * rollSpeed); 
+    } 
 }
