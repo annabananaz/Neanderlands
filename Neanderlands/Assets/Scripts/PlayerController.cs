@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private float pitch = 0.0f;
     private Rigidbody rb;
 
+
+
     //public AudioSource source;
     //public AudioClip clip1;
 
@@ -34,15 +36,21 @@ public class PlayerController : MonoBehaviour
     public bool PickAxe = true;
     public bool Torch = true;
 
+    //Things that might fix the camera in raycasting
+    private RaycastHit endpointInfo;
+
+
+
     //Creating the Toolbox System
     // 1 = Hands
     // 2 = PickAxe
     // 3 = Torch
 
 
-    // Use this for initialization
-    void Start()
-    {
+        // Use this for initialization
+        void Start()
+        {
+
         //gc = GameObject.FindObjectOfType<GameController>();
 
         rb = GetComponent<Rigidbody>();
@@ -53,11 +61,13 @@ public class PlayerController : MonoBehaviour
         //clip1 = audioSources[0].clip;
 
         Time.timeScale = 1f;            // Starts game at timescale 1 for active
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+
+        }
+
+        // Update is called once per frame
+        void FixedUpdate()
+        {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -70,7 +80,7 @@ public class PlayerController : MonoBehaviour
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-    }
+        }
 
     private void Update()
     {
@@ -80,48 +90,55 @@ public class PlayerController : MonoBehaviour
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
-        //Checks multiple conditions, if true, the rocks break with a left click
+        //Checks multiple conditions, if true, the rocks break with a left click       
         if (Input.GetKey(KeyCode.Mouse0))
         {
-                //print("Pressing Mouse 0");
-                if (currentTool == 2)
-                {
-                        //print("Current tool is 2");
-                        if (PickAxe == true)
-                        {
-                                //print("PickAxe is true");
-                                RaycastHit hit;
-                                Ray thing = new Ray(transform.position, Vector3.forward);
-                                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
-                                if (Physics.Raycast(thing, out hit, 8.0f))
-                                {
-                                        print("This is tag " + hit.transform.gameObject.tag);
-                                        Breaker(hit.transform.gameObject);
-                                }
-                        }
-                }
+        //print("Pressing Mouse 0");
+        if (currentTool == 2)
+        {
+        //print("Current tool is 2");
+        if (PickAxe == true)
+        {
+        //print("PickAxe is true");
+        //Ray thing = Camera.main.ViewportPointToRay(Input.mousePosition);
+        //Ray thing = new Ray(transform.position, Vector3.forward);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
+        {
+                print("This is tag " + endpointInfo.transform.gameObject.tag);
+                Breaker(endpointInfo.transform.gameObject);
+        }
+        }
+        }
         }
 
         //Checks multiple conditions, if true, the vines break with a left click
         if (Input.GetKey(KeyCode.Mouse0))
         {
-                //print("Pressing Mouse 0");
-                if (currentTool == 3)
-                {
-                        //print("Current tool is 2");
-                        if (Torch == true)
-                        {
-                                //print("PickAxe is true");
-                                RaycastHit hit;
-                                Ray thing = new Ray(transform.position, Vector3.forward);
-                                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
-                                if (Physics.Raycast(thing, out hit, 8.0f))
-                                {
-                                        print("This is tag " + hit.transform.gameObject.tag);
-                                        Burner(hit.transform.gameObject);
-                                }
-                        }
-                }
+        //print("Pressing Mouse 0");
+        if (currentTool == 3)
+        {
+        //print("Current tool is 3");
+        if (Torch == true)
+        {
+        //print("Torch is true");
+        //RaycastHit hit;
+        //Ray thing = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        //Ray thing = new Ray(transform.position, Vector3.forward);
+        //Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
+        {
+                print("This is tag " + endpointInfo.transform.gameObject.tag);
+                Burner(endpointInfo.transform.gameObject);
+        }
+        //if (Physics.Raycast(thing, out hit))
+        //{
+        //        print("This is tag " + hit.transform.gameObject.tag);
+        //        Burner(hit.transform.gameObject);
+        //}
+        }
+        }
         }
         //Mechanic for Switching between tools
         if (Input.GetKeyDown("1"))

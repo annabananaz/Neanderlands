@@ -132,7 +132,8 @@ MonoBehaviour:
   jumpRate: 0.8
   maxPitch: 60
   minPitch: -30
-currentTool: 2
+  gc: {fileID: 0}
+  currentTool: 2
   Hands: 1
   PickAxe: 1
   Torch: 1
