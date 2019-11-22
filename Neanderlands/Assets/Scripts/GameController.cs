@@ -7,10 +7,13 @@ public class GameController : MonoBehaviour
     public GameObject player;
     public GameObject pauseMenuCanvas;
 
+    protected bool paused;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        paused = false;
         Cursor.visible = false;
         Time.timeScale = 1f;            // Starts game at timescale 1 for active
         pauseMenuCanvas.SetActive(false);
@@ -26,6 +29,7 @@ public class GameController : MonoBehaviour
     public void PauseGame()
     {
         Debug.Log("pausing ...");
+        paused = true;
         Cursor.visible = true;
         pauseMenuCanvas.SetActive(true);
         player.GetComponent<PlayerController>().enabled = false;
@@ -35,6 +39,7 @@ public class GameController : MonoBehaviour
     public void ResumeGame()
     {
         Debug.Log("resuming game ...");
+        paused = false;
         Cursor.visible = false;
         pauseMenuCanvas.SetActive(false);
         player.GetComponent<PlayerController>().enabled = true;
@@ -50,5 +55,10 @@ public class GameController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public bool gamePaused()
+    {
+        return paused;
     }
 }
