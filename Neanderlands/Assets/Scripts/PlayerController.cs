@@ -110,28 +110,43 @@ public class PlayerController : MonoBehaviour
         }
 
 
-                //if(Input.GetButton("Fire1") && Time.time > nextFire)
-                //{
-                //    nextFire = Time.time + fireRate;
-                //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-                //    //play audio
-                //    source.PlayOneShot(clip1);
-                //}
+        //if(Input.GetButton("Fire1") && Time.time > nextFire)
+        //{
+        //    nextFire = Time.time + fireRate;
+        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
+        //    //play audio
+        //    source.PlayOneShot(clip1);
+        //}
 
-                //if (Input.GetKeyDown(KeyCode.Escape))
-                //{
-                //    gc.PauseMusic();
-                //    GetComponent<PlayerController>().enabled = false;
-                //    crossHair.SetActive(false);
-                //    pauseMenuCanvas.SetActive(true);
-                //    Cursor.visible = true;
-                //    Time.timeScale = 0;
-                //}
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    gc.PauseMusic();
+        //    GetComponent<PlayerController>().enabled = false;
+        //    crossHair.SetActive(false);
+        //    pauseMenuCanvas.SetActive(true);
+        //    Cursor.visible = true;
+        //    Time.timeScale = 0;
+        //}
         }
 
-      //Function to Break Rocks
-      
-      private void Breaker(GameObject gameObject)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Lava")
+        {
+            print("Lava Trigger Enter");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Lava")
+        {
+            print("Lava Trigger Exit");
+        }
+    }
+    //Function to Break Rocks
+
+    private void Breaker(GameObject gameObject)
       {   
         if (gameObject.tag == "breakableRock")
         {
