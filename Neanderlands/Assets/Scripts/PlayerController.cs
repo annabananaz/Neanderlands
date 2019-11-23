@@ -141,9 +141,9 @@ public class PlayerController : MonoBehaviour
 
             while (inLava)
             {
-                while (gc.gamePaused()) { }
-                health -= 1;
-                Debug.Log(health);
+                int value = gc.gamePaused() ? 0 : 1;
+                health -= value;
+                //Debug.Log(health);
                 yield return new WaitForSeconds(0.1f);
 
                 if (health <= 0)
@@ -163,10 +163,11 @@ public class PlayerController : MonoBehaviour
 
             while (!inLava)
             {
-                while (gc.gamePaused()) { }
+                int value = gc.gamePaused() ? 0 : 1;
+
                 yield return new WaitForSeconds(0.5f);
-                health += 1;
-                Debug.Log(health);
+                health += value;
+                //Debug.Log(health);
 
                 if (health >= 100)
                 {

@@ -9,9 +9,13 @@ public class LavaMovement : MonoBehaviour
     Vector3 heightAdd = new Vector3(0f, 0.1f, 0f);
 
     private float startHeight = 0f;
+    public GameController gc;
 
     private void Start()
     {
+        gc = GameObject.FindObjectOfType<GameController>();
+
+
         startHeight = this.transform.position.y;
         heightLimit += startHeight;
     }
@@ -19,15 +23,20 @@ public class LavaMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.position.y >= heightLimit) {
-            heightAdd = -heightAdd;
-        }
-
-        if (this.transform.position.y < startHeight)
+        if (!gc.gamePaused())
         {
-            heightAdd = -heightAdd;
+            if (this.transform.position.y >= heightLimit)
+            {
+                heightAdd = -heightAdd;
+            }
+
+            if (this.transform.position.y < startHeight)
+            {
+                heightAdd = -heightAdd;
+            }
+
+            this.transform.position += heightAdd * Time.deltaTime;
         }
 
-        this.transform.position += heightAdd * Time.deltaTime;
     }
 }
