@@ -184,6 +184,7 @@ MonoBehaviour:
   jumpRate: 0.8
   maxPitch: 60
   minPitch: -30
+
   rollAngle: 5
   rollSpeed: 5
   gc: {fileID: 0}

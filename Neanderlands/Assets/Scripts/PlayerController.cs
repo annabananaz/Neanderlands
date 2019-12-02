@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private float currentRollAngle = 0f;
 
+
+
     //public AudioSource source;
     //public AudioClip clip1;
 
@@ -53,14 +55,15 @@ public class PlayerController : MonoBehaviour
 
         //AudioSource[] audioSources = GetComponents<AudioSource>();
         //source = audioSources[0];
-        //clip1 = audioSources[0].clip;
-
-        
+        //clip1 = audioSources[0].clip;   
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+
+        }
+
+        // Update is called once per frame
+        void FixedUpdate()
+        {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -73,7 +76,7 @@ public class PlayerController : MonoBehaviour
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-    }
+        }
 
     private void Update()
     {
@@ -92,9 +95,63 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        //Checks multiple conditions, if true, the rocks break with a left click
+        //Checks multiple conditions, if true, the rocks break with a left click       
         if (Input.GetKey(KeyCode.Mouse0))
         {
+// =============================================================================matt's added code
+        //print("Pressing Mouse 0");
+        if (currentTool == 2)
+        {
+        //print("Current tool is 2");
+        if (PickAxe == true)
+        {
+        //print("PickAxe is true");
+        //Ray thing = Camera.main.ViewportPointToRay(Input.mousePosition);
+        //Ray thing = new Ray(transform.position, Vector3.forward);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
+        {
+                print("This is tag " + endpointInfo.transform.gameObject.tag);
+                Breaker(endpointInfo.transform.gameObject);
+        }
+        }
+        }
+        }
+
+        //Checks multiple conditions, if true, the vines break with a left click
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+        //print("Pressing Mouse 0");
+        if (currentTool == 3)
+        {
+        //print("Current tool is 3");
+        if (Torch == true)
+        {
+        //print("Torch is true");
+        //RaycastHit hit;
+        //Ray thing = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        //Ray thing = new Ray(transform.position, Vector3.forward);
+        //Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
+        {
+                print("This is tag " + endpointInfo.transform.gameObject.tag);
+                Burner(endpointInfo.transform.gameObject);
+        }
+        //if (Physics.Raycast(thing, out hit))
+        //{
+        //        print("This is tag " + hit.transform.gameObject.tag);
+        //        Burner(hit.transform.gameObject);
+        //}
+        }
+        }
+        }
+        //Mechanic for Switching between tools
+        if (Input.GetKeyDown("1"))
+        {
+               currentTool = 1;
+               print("Current Tool is Hands");
+//========================================================================================
             if (pickaxe.activeSelf) { 
                 //print("PickAxe is true");
                 RaycastHit hit;
@@ -127,6 +184,7 @@ public class PlayerController : MonoBehaviour
         //    Cursor.visible = true;
         //    Time.timeScale = 0;
         //}
+// ================================================================================ master
         }
 
     private void OnTriggerEnter(Collider other)
@@ -153,6 +211,16 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
         }
       }
+
+        //Function to Burn Vines
+      private void Burner(GameObject gameObject)
+      {
+        if (gameObject.tag == "breakableVines")
+        {
+                Destroy(gameObject);
+        }
+      }
+
 
     void LookAroundRoll() {
         currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
