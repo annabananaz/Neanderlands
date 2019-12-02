@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4866011445453338, guid: cd75de6be0cbd56429833597e6c13264, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4866011445453338, guid: cd75de6be0cbd56429833597e6c13264, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -487,11 +487,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BreakableRock
-      objectReference: {fileID: 0}
-    - target: {fileID: 2522168575265718634, guid: 36b7de3e8e6b1184c9cda9188c9cac88,
-        type: 3}
-      propertyPath: m_TagString
-      value: breakableRock
       objectReference: {fileID: 0}
     - target: {fileID: 8135194359356391410, guid: 36b7de3e8e6b1184c9cda9188c9cac88,
         type: 3}

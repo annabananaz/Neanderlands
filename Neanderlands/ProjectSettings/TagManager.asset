@@ -7,6 +7,9 @@ TagManager:
   - breakableRock
   - breakableVines
   - vines
+
+  - Lava
+
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Glow
   - 
   - 
   - 

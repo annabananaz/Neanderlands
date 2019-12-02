@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject pickaxe, torch;
 
     public float moveSpeed;
     public float jumpForce;
@@ -11,13 +13,21 @@ public class PlayerController : MonoBehaviour
     public float jumpRate;
     public float maxPitch;
     public float minPitch;
-    
+
 
     private Vector3 jump;
     private float nextJump = 0.0f;
     private float yaw = 0.0f;
     private float pitch = 0.0f;
     private Rigidbody rb;
+    //roll
+    [SerializeField]
+    private float rollAngle = 10f;
+
+    [SerializeField]
+    private float rollSpeed = 3f;
+
+    private float currentRollAngle = 0f;
 
 
 
@@ -25,21 +35,9 @@ public class PlayerController : MonoBehaviour
     //public AudioClip clip1;
 
     // Pause menu
-    //public GameObject pauseMenuCanvas;
     //public GameObject crossHair;
 
-    //public GameController gc;
-
-    //Generic stuff for the Toolbox
-    public int currentTool = 2;
-    public bool Hands = true;
-    public bool PickAxe = true;
-    public bool Torch = true;
-
-    //Things that might fix the camera in raycasting
-    private RaycastHit endpointInfo;
-
-
+    public GameController gc;
 
     //Creating the Toolbox System
     // 1 = Hands
@@ -47,20 +45,18 @@ public class PlayerController : MonoBehaviour
     // 3 = Torch
 
 
-        // Use this for initialization
-        void Start()
-        {
-
-        //gc = GameObject.FindObjectOfType<GameController>();
+    // Use this for initialization
+    void Start()
+    {
+        gc = GameObject.FindObjectOfType<GameController>();
 
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
 
         //AudioSource[] audioSources = GetComponents<AudioSource>();
         //source = audioSources[0];
-        //clip1 = audioSources[0].clip;
-
-        Time.timeScale = 1f;            // Starts game at timescale 1 for active
+        //clip1 = audioSources[0].clip;   
+    }
 
 
         }
@@ -88,11 +84,21 @@ public class PlayerController : MonoBehaviour
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        LookAroundRoll();
+
+        transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
+        
+        //pause game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gc.PauseGame();
+            
+        }
 
         //Checks multiple conditions, if true, the rocks break with a left click       
         if (Input.GetKey(KeyCode.Mouse0))
         {
+// =============================================================================matt's added code
         //print("Pressing Mouse 0");
         if (currentTool == 2)
         {
@@ -145,39 +151,60 @@ public class PlayerController : MonoBehaviour
         {
                currentTool = 1;
                print("Current Tool is Hands");
+//========================================================================================
+            if (pickaxe.activeSelf) { 
+                //print("PickAxe is true");
+                RaycastHit hit;
+                Ray thing = new Ray(transform.position, Vector3.forward);
+                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.red);
+                if (Physics.Raycast(thing, out hit, 8.0f))
+                {
+                        print("This is tag " + hit.transform.gameObject.tag);
+                        Breaker(hit.transform.gameObject);
+                }
+                        
+            }
         }
-        if (Input.GetKeyDown("2") && PickAxe == true)
+
+
+        //if(Input.GetButton("Fire1") && Time.time > nextFire)
+        //{
+        //    nextFire = Time.time + fireRate;
+        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
+        //    //play audio
+        //    source.PlayOneShot(clip1);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    gc.PauseMusic();
+        //    GetComponent<PlayerController>().enabled = false;
+        //    crossHair.SetActive(false);
+        //    pauseMenuCanvas.SetActive(true);
+        //    Cursor.visible = true;
+        //    Time.timeScale = 0;
+        //}
+// ================================================================================ master
+        }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Lava")
         {
-                currentTool = 2;
-                print("Current Tool is PickAxe");
+            print("Lava Trigger Enter");
         }
-        if (Input.GetKeyDown("3") && Torch == true)
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Lava")
         {
-                currentTool = 3;
-                print("Current Tool is Torch");
+            print("Lava Trigger Exit");
         }
+    }
+    //Function to Break Rocks
 
-
-                //if(Input.GetButton("Fire1") && Time.time > nextFire)
-                //{
-                //    nextFire = Time.time + fireRate;
-                //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-                //    //play audio
-                //    source.PlayOneShot(clip1);
-                //}
-
-                //if (Input.GetKeyDown(KeyCode.Escape))
-                //{
-                //    gc.PauseMusic();
-                //    GetComponent<PlayerController>().enabled = false;
-                //    crossHair.SetActive(false);
-                //    pauseMenuCanvas.SetActive(true);
-                //    Cursor.visible = true;
-                //    Time.timeScale = 0;
-                //}
-        }
-      //Function to Break Rocks
-      private void Breaker(GameObject gameObject)
+    private void Breaker(GameObject gameObject)
       {   
         if (gameObject.tag == "breakableRock")
         {
@@ -195,4 +222,8 @@ public class PlayerController : MonoBehaviour
       }
 
 
+    void LookAroundRoll() {
+        currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
+                            * rollAngle, Time.deltaTime * rollSpeed); 
+    } 
 }
