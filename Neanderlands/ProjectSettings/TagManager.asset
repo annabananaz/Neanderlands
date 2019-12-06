@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - breakableRock
+  - breakableVines
+  - vines
+
   - Lava
+
   layers:
   - Default
   - TransparentFX

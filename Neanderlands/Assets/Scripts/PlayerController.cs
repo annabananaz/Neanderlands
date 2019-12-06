@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private GameObject pickaxe, torch;
+
+    [SerializeField]
+    private InventoryControl inventoryControl;
 
     public float moveSpeed;
     public float jumpForce;
@@ -14,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float maxPitch;
     public float minPitch;
 
+    public Slider healthBar;
+    public int currentTool = 1;
 
     private Vector3 jump;
     private float nextJump = 0.0f;
@@ -28,14 +34,21 @@ public class PlayerController : MonoBehaviour
     private float rollSpeed = 3f;
 
     private float currentRollAngle = 0f;
+    private RaycastHit endpointInfo;
 
-    //public AudioSource source;
-    //public AudioClip clip1;
 
-    // Pause menu
-    //public GameObject crossHair;
+
+    private int health;
+    private bool inLava;
 
     public GameController gc;
+    
+    
+    
+    
+    
+    //public AudioSource source;
+    //public AudioClip clip1;
 
     //Creating the Toolbox System
     // 1 = Hands
@@ -51,11 +64,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
 
+        health = 100;
+        healthBar.value = 100;
+        inLava = false;
+
+        //Play background music
         //AudioSource[] audioSources = GetComponents<AudioSource>();
         //source = audioSources[0];
         //clip1 = audioSources[0].clip;
-
-        
     }
 
     // Update is called once per frame
@@ -73,6 +89,8 @@ public class PlayerController : MonoBehaviour
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
+
+        healthBar.value = health;
     }
 
     private void Update()
@@ -80,82 +98,129 @@ public class PlayerController : MonoBehaviour
         yaw += cameraSpeed * Input.GetAxis("Mouse X");
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        currentTool = inventoryControl.currentTool;
 
         LookAroundRoll();
 
         transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
-        
+
         //pause game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gc.PauseGame();
-            
+
         }
 
-        //Checks multiple conditions, if true, the rocks break with a left click
+        //Checks multiple conditions       
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (pickaxe.activeSelf) { 
-                //print("PickAxe is true");
-                RaycastHit hit;
-                Ray thing = new Ray(transform.position, Vector3.forward);
-                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.red);
-                if (Physics.Raycast(thing, out hit, 8.0f))
+
+            //if holding pickaxe, the rocks break with a left click
+            if (currentTool == 2)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
                 {
-                        print("This is tag " + hit.transform.gameObject.tag);
-                        Breaker(hit.transform.gameObject);
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Breaker(endpointInfo.transform.gameObject);
                 }
-                        
+            }
+            
+             //if holding torch, the vines break with a left click
+            if (currentTool == 3)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
+                {
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Burner(endpointInfo.transform.gameObject);
+                }
             }
         }
-
-
-        //if(Input.GetButton("Fire1") && Time.time > nextFire)
-        //{
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-        //    //play audio
-        //    source.PlayOneShot(clip1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    gc.PauseMusic();
-        //    GetComponent<PlayerController>().enabled = false;
-        //    crossHair.SetActive(false);
-        //    pauseMenuCanvas.SetActive(true);
-        //    Cursor.visible = true;
-        //    Time.timeScale = 0;
-        //}
-        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform.tag == "Lava")
+        if (other.gameObject.tag == "Lava")
         {
-            print("Lava Trigger Enter");
+            inLava = true;
+
+            while (inLava)
+            {
+                int value = gc.gamePaused() ? 0 : 1;
+                health -= value;
+                //Debug.Log(health);
+                yield return new WaitForSeconds(0.1f);
+
+                if (health <= 0)
+                {
+                    yield break;
+                }
+            }
+
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator OnTriggerExit(Collider other)
     {
-        if (other.gameObject.transform.tag == "Lava")
+        if (other.gameObject.tag == "Lava")
         {
-            print("Lava Trigger Exit");
+            inLava = false;
+
+            while (!inLava)
+            {
+                int value = gc.gamePaused() ? 0 : 1;
+
+                yield return new WaitForSeconds(0.5f);
+                health += value;
+                //Debug.Log(health);
+
+                if (health >= 100)
+                {
+                    yield break;
+                }
+            }
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.transform.tag == "Lava")
+    //    {
+    //        print("Lava Trigger Enter");
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.transform.tag == "Lava")
+    //    {
+    //        print("Lava Trigger Exit");
+    //    }
+    //}
     //Function to Break Rocks
 
     private void Breaker(GameObject gameObject)
-      {   
+    {
         if (gameObject.tag == "breakableRock")
         {
-                Destroy(gameObject);
+            Destroy(gameObject);
         }
-      }
+    }
 
-    void LookAroundRoll() {
+    //Function to Burn Vines
+    private void Burner(GameObject gameObject)
+    {
+        if (gameObject.tag == "breakableVines")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void LookAroundRoll()
+    {
         currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
-                            * rollAngle, Time.deltaTime * rollSpeed); 
-    } 
+                            * rollAngle, Time.deltaTime * rollSpeed);
+    }
 }
+
