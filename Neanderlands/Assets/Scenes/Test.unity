@@ -2157,6 +2157,8 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 245841062}
+    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
       propertyPath: inventoryControl
       value: 
       objectReference: {fileID: 15806613}
