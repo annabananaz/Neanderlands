@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private int health;
+    public int health;
     private bool inLava;
 
     public GameController gc;
