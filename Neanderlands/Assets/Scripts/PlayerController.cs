@@ -7,13 +7,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject pickaxe, torch;
 
+    [SerializeField]
+    private InventoryControl inventoryControl;
+
     public float moveSpeed;
     public float jumpForce;
     public float cameraSpeed;
     public float jumpRate;
     public float maxPitch;
     public float minPitch;
-
+    public int currentTool = 1;
 
     private Vector3 jump;
     private float nextJump = 0.0f;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private float rollSpeed = 3f;
 
     private float currentRollAngle = 0f;
+    private RaycastHit endpointInfo;
 
 
 
@@ -58,12 +62,9 @@ public class PlayerController : MonoBehaviour
         //clip1 = audioSources[0].clip;   
     }
 
-
-        }
-
-        // Update is called once per frame
-        void FixedUpdate()
-        {
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -76,116 +77,52 @@ public class PlayerController : MonoBehaviour
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-        }
+    }
 
     private void Update()
     {
         yaw += cameraSpeed * Input.GetAxis("Mouse X");
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        currentTool = inventoryControl.currentTool;
 
         LookAroundRoll();
 
         transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
-        
+
         //pause game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gc.PauseGame();
-            
+
         }
 
-        //Checks multiple conditions, if true, the rocks break with a left click       
+        //Checks multiple conditions       
         if (Input.GetKey(KeyCode.Mouse0))
         {
-// =============================================================================matt's added code
-        //print("Pressing Mouse 0");
-        if (currentTool == 2)
-        {
-        //print("Current tool is 2");
-        if (PickAxe == true)
-        {
-        //print("PickAxe is true");
-        //Ray thing = Camera.main.ViewportPointToRay(Input.mousePosition);
-        //Ray thing = new Ray(transform.position, Vector3.forward);
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
-        {
-                print("This is tag " + endpointInfo.transform.gameObject.tag);
-                Breaker(endpointInfo.transform.gameObject);
-        }
-        }
-        }
-        }
-
-        //Checks multiple conditions, if true, the vines break with a left click
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-        //print("Pressing Mouse 0");
-        if (currentTool == 3)
-        {
-        //print("Current tool is 3");
-        if (Torch == true)
-        {
-        //print("Torch is true");
-        //RaycastHit hit;
-        //Ray thing = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-        //Ray thing = new Ray(transform.position, Vector3.forward);
-        //Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.yellow);
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo))
-        {
-                print("This is tag " + endpointInfo.transform.gameObject.tag);
-                Burner(endpointInfo.transform.gameObject);
-        }
-        //if (Physics.Raycast(thing, out hit))
-        //{
-        //        print("This is tag " + hit.transform.gameObject.tag);
-        //        Burner(hit.transform.gameObject);
-        //}
-        }
-        }
-        }
-        //Mechanic for Switching between tools
-        if (Input.GetKeyDown("1"))
-        {
-               currentTool = 1;
-               print("Current Tool is Hands");
-//========================================================================================
-            if (pickaxe.activeSelf) { 
-                //print("PickAxe is true");
-                RaycastHit hit;
-                Ray thing = new Ray(transform.position, Vector3.forward);
-                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.red);
-                if (Physics.Raycast(thing, out hit, 8.0f))
+            //if holding pickaxe, the rocks break with a left click
+            if (currentTool == 2)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
                 {
-                        print("This is tag " + hit.transform.gameObject.tag);
-                        Breaker(hit.transform.gameObject);
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Breaker(endpointInfo.transform.gameObject);
                 }
-                        
+            }
+
+             //if holding torch, the vines break with a left click
+            if (currentTool == 3)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
+                {
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Burner(endpointInfo.transform.gameObject);
+                }
             }
         }
-
-
-        //if(Input.GetButton("Fire1") && Time.time > nextFire)
-        //{
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-        //    //play audio
-        //    source.PlayOneShot(clip1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    gc.PauseMusic();
-        //    GetComponent<PlayerController>().enabled = false;
-        //    crossHair.SetActive(false);
-        //    pauseMenuCanvas.SetActive(true);
-        //    Cursor.visible = true;
-        //    Time.timeScale = 0;
-        //}
-// ================================================================================ master
-        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -205,25 +142,26 @@ public class PlayerController : MonoBehaviour
     //Function to Break Rocks
 
     private void Breaker(GameObject gameObject)
-      {   
+    {
         if (gameObject.tag == "breakableRock")
         {
-                Destroy(gameObject);
+            Destroy(gameObject);
         }
-      }
+    }
 
-        //Function to Burn Vines
-      private void Burner(GameObject gameObject)
-      {
+    //Function to Burn Vines
+    private void Burner(GameObject gameObject)
+    {
         if (gameObject.tag == "breakableVines")
         {
-                Destroy(gameObject);
+            Destroy(gameObject);
         }
-      }
+    }
 
 
-    void LookAroundRoll() {
+    void LookAroundRoll()
+    {
         currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
-                            * rollAngle, Time.deltaTime * rollSpeed); 
-    } 
+                            * rollAngle, Time.deltaTime * rollSpeed);
+    }
 }
