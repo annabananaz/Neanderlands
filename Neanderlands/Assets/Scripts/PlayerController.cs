@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Lava")
         {
