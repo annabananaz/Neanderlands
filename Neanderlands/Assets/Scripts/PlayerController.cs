@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float jumpRate;
     public float maxPitch;
     public float minPitch;
+
+    public Slider healthBar;
     public int currentTool = 1;
 
     private Vector3 jump;
@@ -35,13 +38,17 @@ public class PlayerController : MonoBehaviour
 
 
 
-    //public AudioSource source;
-    //public AudioClip clip1;
-
-    // Pause menu
-    //public GameObject crossHair;
+    private int health;
+    private bool inLava;
 
     public GameController gc;
+    
+    
+    
+    
+    
+    //public AudioSource source;
+    //public AudioClip clip1;
 
     //Creating the Toolbox System
     // 1 = Hands
@@ -57,9 +64,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
 
+        health = 100;
+        healthBar.value = 100;
+        inLava = false;
+
+        //Play background music
         //AudioSource[] audioSources = GetComponents<AudioSource>();
         //source = audioSources[0];
-        //clip1 = audioSources[0].clip;   
+        //clip1 = audioSources[0].clip;
     }
 
     // Update is called once per frame
@@ -77,6 +89,8 @@ public class PlayerController : MonoBehaviour
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
+
+        healthBar.value = health;
     }
 
     private void Update()
@@ -100,6 +114,7 @@ public class PlayerController : MonoBehaviour
         //Checks multiple conditions       
         if (Input.GetKey(KeyCode.Mouse0))
         {
+
             //if holding pickaxe, the rocks break with a left click
             if (currentTool == 2)
             {
@@ -110,7 +125,7 @@ public class PlayerController : MonoBehaviour
                     Breaker(endpointInfo.transform.gameObject);
                 }
             }
-
+            
              //if holding torch, the vines break with a left click
             if (currentTool == 3)
             {
@@ -126,19 +141,63 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform.tag == "Lava")
+        if (other.gameObject.tag == "Lava")
         {
-            print("Lava Trigger Enter");
+            inLava = true;
+
+            while (inLava)
+            {
+                int value = gc.gamePaused() ? 0 : 1;
+                health -= value;
+                //Debug.Log(health);
+                yield return new WaitForSeconds(0.1f);
+
+                if (health <= 0)
+                {
+                    yield break;
+                }
+            }
+
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator OnTriggerExit(Collider other)
     {
-        if (other.gameObject.transform.tag == "Lava")
+        if (other.gameObject.tag == "Lava")
         {
-            print("Lava Trigger Exit");
+            inLava = false;
+
+            while (!inLava)
+            {
+                int value = gc.gamePaused() ? 0 : 1;
+
+                yield return new WaitForSeconds(0.5f);
+                health += value;
+                //Debug.Log(health);
+
+                if (health >= 100)
+                {
+                    yield break;
+                }
+            }
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.transform.tag == "Lava")
+    //    {
+    //        print("Lava Trigger Enter");
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.transform.tag == "Lava")
+    //    {
+    //        print("Lava Trigger Exit");
+    //    }
+    //}
     //Function to Break Rocks
 
     private void Breaker(GameObject gameObject)
@@ -158,10 +217,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void LookAroundRoll()
     {
         currentRollAngle = Mathf.Lerp(currentRollAngle, Input.GetAxisRaw("Mouse X")
                             * rollAngle, Time.deltaTime * rollSpeed);
     }
 }
+
