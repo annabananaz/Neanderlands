@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject pickaxe, torch;
 
+    [SerializeField]
+    private InventoryControl inventoryControl;
+
     public float moveSpeed;
     public float jumpForce;
     public float cameraSpeed;
@@ -16,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float minPitch;
 
     public Slider healthBar;
+    public int currentTool = 1;
 
     private Vector3 jump;
     private float nextJump = 0.0f;
@@ -30,6 +34,9 @@ public class PlayerController : MonoBehaviour
     private float rollSpeed = 3f;
 
     private float currentRollAngle = 0f;
+    private RaycastHit endpointInfo;
+
+
 
     private int health;
     private bool inLava;
@@ -65,8 +72,6 @@ public class PlayerController : MonoBehaviour
         //AudioSource[] audioSources = GetComponents<AudioSource>();
         //source = audioSources[0];
         //clip1 = audioSources[0].clip;
-
-
     }
 
     // Update is called once per frame
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour
         yaw += cameraSpeed * Input.GetAxis("Mouse X");
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        currentTool = inventoryControl.currentTool;
 
         LookAroundRoll();
 
@@ -105,35 +111,35 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //Checks multiple conditions, if true, the rocks break with a left click
+        //Checks multiple conditions       
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (pickaxe.activeSelf)
-            {
-                //print("PickAxe is true");
-                RaycastHit hit;
-                Ray thing = new Ray(transform.position, Vector3.forward);
-                Debug.DrawRay(transform.position, Vector3.forward * 8.0f, Color.red);
-                if (Physics.Raycast(thing, out hit, 8.0f))
-                {
-                    print("This is tag " + hit.transform.gameObject.tag);
-                    Breaker(hit.transform.gameObject);
-                }
 
+            //if holding pickaxe, the rocks break with a left click
+            if (currentTool == 2)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
+                {
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Breaker(endpointInfo.transform.gameObject);
+                }
+            }
+            
+             //if holding torch, the vines break with a left click
+            if (currentTool == 3)
+            {
+                Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, Color.red);
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 2.0f, out endpointInfo, 2))
+                {
+                    print("This is tag " + endpointInfo.transform.gameObject.tag);
+                    Burner(endpointInfo.transform.gameObject);
+                }
             }
         }
-
-
-        //if(Input.GetButton("Fire1") && Time.time > nextFire)
-        //{
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawnPos.position, shotSpawnPos.rotation);
-        //    //play audio
-        //    source.PlayOneShot(clip1);
-        //}
     }
 
-    IEnumerator OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Lava")
         {
@@ -197,6 +203,15 @@ public class PlayerController : MonoBehaviour
     private void Breaker(GameObject gameObject)
     {
         if (gameObject.tag == "breakableRock")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    //Function to Burn Vines
+    private void Burner(GameObject gameObject)
+    {
+        if (gameObject.tag == "breakableVines")
         {
             Destroy(gameObject);
         }

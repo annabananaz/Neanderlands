@@ -126,6 +126,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1940899995}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &15806613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940899995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15806612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef17c5fa5f8c4086a9e3aab3589ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &38181919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,6 +2157,9 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 245841062}
+      propertyPath: inventoryControl
+      value: 
+      objectReference: {fileID: 15806613}
     - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
         type: 3}
       propertyPath: pickaxeFind
@@ -2155,6 +2170,16 @@ PrefabInstance:
       propertyPath: torchFind
       value: 
       objectReference: {fileID: 1550076291}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: PickAxe
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: Hands
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1549602758, guid: cd75de6be0cbd56429833597e6c13264, type: 3}
       propertyPath: isGlobal
       value: 1
