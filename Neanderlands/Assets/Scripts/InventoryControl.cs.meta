@@ -3,7 +3,14 @@ guid: aef17c5fa5f8c4086a9e3aab3589ece6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pickaxeFind: {instanceID: 0}
+  - torchFind: {instanceID: 0}
+  - playerPickaxe: {instanceID: 0}
+  - playerTorch: {instanceID: 0}
+  - hands: {instanceID: 0}
+  - pick: {instanceID: 0}
+  - torch: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
