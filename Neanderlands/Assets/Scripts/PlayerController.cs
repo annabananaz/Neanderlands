@@ -43,12 +43,9 @@ public class PlayerController : MonoBehaviour
 
     public GameController gc;
     
-    
-    
-    
-    
-    //public AudioSource source;
-    //public AudioClip clip1;
+    public AudioSource source;
+    public AudioClip footstep1, footstep2, footstep3, footstep4, footstep5, footstep6;
+
 
     //Creating the Toolbox System
     // 1 = Hands
