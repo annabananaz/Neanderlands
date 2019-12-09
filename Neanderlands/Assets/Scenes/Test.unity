@@ -386,11 +386,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
-        type: 3}
-      propertyPath: m_Name
-      value: PickaxeFind
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -460,6 +455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
+        type: 3}
+      propertyPath: m_Name
+      value: PickaxeFind
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c, type: 3}
@@ -889,6 +889,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 245841062}
+    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: jumpRate
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
         type: 3}
       propertyPath: pickaxeFind
@@ -1029,11 +1034,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 929557171396936028, guid: 58b602f747ed61c45bf6657f6a13ed4f,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
     - target: {fileID: 929557171587069363, guid: 58b602f747ed61c45bf6657f6a13ed4f,
         type: 3}
       propertyPath: m_Color.r
@@ -1078,6 +1078,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.019607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 929557171396936028, guid: 58b602f747ed61c45bf6657f6a13ed4f,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 929557171396936000, guid: 58b602f747ed61c45bf6657f6a13ed4f,
         type: 3}

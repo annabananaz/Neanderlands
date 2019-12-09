@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         paused = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;            // Starts game at timescale 1 for active
         pauseMenuCanvas.SetActive(false);
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("pausing ...");
         paused = true;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
         pauseMenuCanvas.SetActive(true);
         player.GetComponent<PlayerController>().enabled = false;
@@ -40,6 +42,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("resuming game ...");
         paused = false;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
         pauseMenuCanvas.SetActive(false);
         player.GetComponent<PlayerController>().enabled = true;

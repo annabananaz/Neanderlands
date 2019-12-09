@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log(gameObject.GetComponent<Rigidbody>().velocity.y);
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
         Vector3 sidestep = transform.right * h * moveSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + movement + sidestep);
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextJump)
+        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Approximately(gameObject.GetComponent<Rigidbody>().velocity.y, 0) ) //Time.time > nextJump)
         {
             nextJump = Time.time + jumpRate;
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
@@ -99,7 +100,8 @@ public class PlayerController : MonoBehaviour
 
         LookAroundRoll();
 
-        transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
+        transform.eulerAngles = new Vector3(0, yaw, 0);
+        FindObjectOfType<Camera>().transform.eulerAngles = new Vector3(pitch, yaw, currentRollAngle);
 
         //pause game
         if (Input.GetKeyDown(KeyCode.Escape))
