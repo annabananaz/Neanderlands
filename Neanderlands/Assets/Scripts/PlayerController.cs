@@ -95,6 +95,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //to prevent health from being over 100 when mushroom is eaten
+        if (health > 100){
+            health = 100;
+        }
         yaw += cameraSpeed * Input.GetAxis("Mouse X");
         pitch -= cameraSpeed * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
@@ -161,6 +165,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //when out of lava regenerate health
     IEnumerator OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Lava")
