@@ -132,11 +132,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3089203187377826994}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 2243e0b9617c74d208e73d32c33553ba,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2243e0b9617c74d208e73d32c33553ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -145,7 +140,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2243e0b9617c74d208e73d32c33553ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.167
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2243e0b9617c74d208e73d32c33553ba,
         type: 3}
@@ -191,6 +186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2243e0b9617c74d208e73d32c33553ba,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2243e0b9617c74d208e73d32c33553ba, type: 3}

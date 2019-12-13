@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1f;            // Starts game at timescale 1 for active
         pauseMenuCanvas.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class GameController : MonoBehaviour
         Cursor.visible = true;
         pauseMenuCanvas.SetActive(true);
         player.GetComponent<PlayerController>().enabled = false;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //Resume Game from paused
@@ -43,7 +46,7 @@ public class GameController : MonoBehaviour
         Cursor.visible = false;
         pauseMenuCanvas.SetActive(false);
         player.GetComponent<PlayerController>().enabled = true;
-
+        Cursor.lockState = CursorLockMode.Locked;
 
         //gc.PauseMusic();
         //crossHair.SetActive(false);
