@@ -191,6 +191,13 @@ MonoBehaviour:
   rollSpeed: 3
   health: 0
   gc: {fileID: 0}
+  source: {fileID: 0}
+  footstep1: {fileID: 0}
+  footstep2: {fileID: 0}
+  footstep3: {fileID: 0}
+  footstep4: {fileID: 0}
+  footstep5: {fileID: 0}
+  footstep6: {fileID: 0}
 --- !u!114 &8659190778532873588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,12 +218,6 @@ MonoBehaviour:
   Hands: 1
   PickAxe: 0
   Torch: 0
-  hands: {fileID: 0}
-  pick: {fileID: 0}
-  torch: {fileID: 0}
-  handsBG: {fileID: 0}
-  pickBG: {fileID: 0}
-  torchBG: {fileID: 0}
 --- !u!1 &1821764948881592
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,16 +542,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5429891132418210424}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
-        type: 3}
-      propertyPath: m_Name
-      value: Pickaxe
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -620,6 +611,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
+        type: 3}
+      propertyPath: m_Name
+      value: Pickaxe
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5da0abae69e40f0a67c0ef6f91ee4c, type: 3}
