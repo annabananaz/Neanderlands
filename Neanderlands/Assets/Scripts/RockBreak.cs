@@ -10,6 +10,11 @@ public class RockBreak : MonoBehaviour
     int hitCount = 0;
     double shake = 0.0f;
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     private void OnMouseDown()
     {
         //GetComponent<BoxCollider>().enabled = false;

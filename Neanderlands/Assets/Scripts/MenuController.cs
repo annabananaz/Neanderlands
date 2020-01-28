@@ -10,10 +10,12 @@ public class MenuController : MonoBehaviour
     public Button startButton;
     public Button quitButton;
     public Text loadText;
+    public bool paused;
 
     void Start()
     {
-        loadText.text = "";   
+        loadText.text = "";
+        paused = false;
     }
 
     // Update is called once per frame

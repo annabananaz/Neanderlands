@@ -81,17 +81,17 @@ public class PlayerController : MonoBehaviour
         Vector3 sidestep = transform.right * h * moveSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + movement + sidestep);
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextJump)
-        {
-            nextJump = Time.time + jumpRate;
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-        }
-
         healthBar.value = health;
     }
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y < 0.2)
+        {
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        }
+
         //to prevent health from being over 100 when mushroom is eaten
         if (health > 100){
             health = 100;

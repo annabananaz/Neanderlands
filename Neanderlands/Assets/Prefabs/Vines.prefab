@@ -101,11 +101,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 72304054555265180}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: a01ad006366234b0c929407fcbfc843a,
-        type: 3}
-      propertyPath: m_Name
-      value: NeanderVinesWithoutLeaves
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a01ad006366234b0c929407fcbfc843a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -176,6 +171,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.402822
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a01ad006366234b0c929407fcbfc843a,
+        type: 3}
+      propertyPath: m_Name
+      value: NeanderVinesWithoutLeaves
+      objectReference: {fileID: 0}
+    - target: {fileID: -7947884300279620089, guid: a01ad006366234b0c929407fcbfc843a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b820d5b94e4643e4491c6a0108acf51c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a01ad006366234b0c929407fcbfc843a, type: 3}
 --- !u!4 &7455411625837068533 stripped
