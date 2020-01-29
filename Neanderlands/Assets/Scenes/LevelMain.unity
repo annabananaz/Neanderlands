@@ -3044,56 +3044,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: pickaxeFind
-      value: 
-      objectReference: {fileID: 1920353297}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: torchFind
-      value: 
-      objectReference: {fileID: 2109873783}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: pickBG
-      value: 
-      objectReference: {fileID: 725038353}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: torchBG
-      value: 
-      objectReference: {fileID: 2006653939}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: handsBG
-      value: 
-      objectReference: {fileID: 1916147802}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: hands
-      value: 
-      objectReference: {fileID: 239097123}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: pick
-      value: 
-      objectReference: {fileID: 1518975911}
-    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: torch
-      value: 
-      objectReference: {fileID: 184301800}
-    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 243286054}
-    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
-        type: 3}
-      propertyPath: jumpForce
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4866011445453338, guid: cd75de6be0cbd56429833597e6c13264, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.7668204
@@ -3138,6 +3088,101 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 243286054}
+    - target: {fileID: 114156343722493438, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: jumpForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: pickaxeFind
+      value: 
+      objectReference: {fileID: 1920353297}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: torchFind
+      value: 
+      objectReference: {fileID: 2109873783}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: pickBG
+      value: 
+      objectReference: {fileID: 725038353}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: torchBG
+      value: 
+      objectReference: {fileID: 2006653939}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: handsBG
+      value: 
+      objectReference: {fileID: 1916147802}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: hands
+      value: 
+      objectReference: {fileID: 239097123}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: pick
+      value: 
+      objectReference: {fileID: 1518975911}
+    - target: {fileID: 8659190778532873588, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: torch
+      value: 
+      objectReference: {fileID: 184301800}
+    - target: {fileID: 3006019574596407537, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176447736541039342, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354539509163231182, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 915598516178292010, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 7604990753956087761, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 5869316680914684979, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 8580484975937602342, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 3584195860301111384, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
+    - target: {fileID: 5360028365726167624, guid: cd75de6be0cbd56429833597e6c13264,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc99ed7f83079430586fc5f601ca2aaf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd75de6be0cbd56429833597e6c13264, type: 3}
 --- !u!114 &1000516465 stripped
