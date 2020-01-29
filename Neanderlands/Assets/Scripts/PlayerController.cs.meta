@@ -3,7 +3,19 @@ guid: 9acf0e8cffbf2ee42902afcae14d2b16
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pickaxe: {instanceID: 0}
+  - torch: {instanceID: 0}
+  - inventoryControl: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - gc: {instanceID: 0}
+  - source: {instanceID: 0}
+  - footstep1: {instanceID: 0}
+  - footstep2: {instanceID: 0}
+  - footstep3: {instanceID: 0}
+  - footstep4: {instanceID: 0}
+  - footstep5: {instanceID: 0}
+  - footstep6: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
